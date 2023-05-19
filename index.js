@@ -32,18 +32,30 @@ async function run() {
 
     const toyCollection = client.db('toyDB').collection('toys')
 
-
+    //get all toys---------------
     app.get('/allToys', async(req,res)=>{
         const result = await toyCollection.find().toArray();
         res.send(result)
     })
     
+    //get single toy --------------------
     app.get('/allToys/:id', async(req,res)=>{
       const id = req.params.id;
       const query = {_id: new ObjectId(id)};
       const result = await toyCollection.findOne(query);
       res.send(result)
     })
+    // get specific toys by email
+    app.get('/myToys', async(req,res)=>{
+      console.log(req.query.email);
+      let query = {};
+      if(req.query?.email){
+        query = {email: req.query.email}
+      }
+      const result = await toyCollection.find(query).toArray();
+      res.send(result)
+    })
+    
     app.get('/toy/:name', async(req,res)=>{
       const toyName = req.params.name;
       const result = await toyCollection.find({
