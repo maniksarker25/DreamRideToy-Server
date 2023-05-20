@@ -55,6 +55,33 @@ async function run() {
       const result = await toyCollection.find(query).toArray();
       res.send(result)
     })
+
+
+    // app.get('/myToys', async(req,res)=>{
+    //   // console.log(req.query);
+    //   const { email, sort } = req.query;
+    //   console.log(email,sort)
+    //   let result ;
+    //   if(sort === 'ascending' || 'descending'){
+    //     const sortOrder = (sort === 'descending'? -1:1);
+    //     result = await toyCollection.find({email}).sort({price:sortOrder}).toArray();
+    //   }
+    //   else{
+    //     result = await toyCollection.find({email}).toArray();
+    //   }
+    //   res.send(result)
+    // })
+
+
+
+    // my toy short by price
+    app.get('/myToyShort', async(req,res)=>{
+      const sortOrder = req.query.sort === 'descending' ? -1 : 1;
+      const result = await toyCollection.find().sort({price:sortOrder}).toArray();
+      res.send(result)
+    })
+
+
     // get toy by search name
     app.get('/toy/:name', async(req,res)=>{
       const toyName = req.params.name;
