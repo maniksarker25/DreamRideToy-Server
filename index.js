@@ -34,7 +34,7 @@ async function run() {
 
     //get all toys---------------
     app.get('/allToys', async(req,res)=>{
-        const result = await toyCollection.find().toArray();
+        const result = await toyCollection.find().limit(20).toArray();
         res.send(result)
     })
     
@@ -55,22 +55,6 @@ async function run() {
       const result = await toyCollection.find(query).toArray();
       res.send(result)
     })
-
-
-    // app.get('/myToys', async(req,res)=>{
-    //   // console.log(req.query);
-    //   const { email, sort } = req.query;
-    //   console.log(email,sort)
-    //   let result ;
-    //   if(sort === 'ascending' || 'descending'){
-    //     const sortOrder = (sort === 'descending'? -1:1);
-    //     result = await toyCollection.find({email}).sort({price:sortOrder}).toArray();
-    //   }
-    //   else{
-    //     result = await toyCollection.find({email}).toArray();
-    //   }
-    //   res.send(result)
-    // })
 
 
 
