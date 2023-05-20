@@ -77,6 +77,15 @@ async function run() {
     // my toy short by price
     app.get('/myToyShort', async(req,res)=>{
       const sortOrder = req.query.sort === 'descending' ? -1 : 1;
+      await toyCollection.updateMany(
+        { },
+        [
+          {
+            $set: {
+              price: { $toDouble: "$price" }
+            }
+          }
+        ])
       const result = await toyCollection.find().sort({price:sortOrder}).toArray();
       res.send(result)
     })
@@ -95,6 +104,7 @@ async function run() {
     // add toy 
     app.post('/addToy', async(req,res)=>{
         const toy = req.body;
+        toy.price = parseFloat(toy.price);
         const result = await toyCollection.insertOne(toy);
         res.send(result)
     })
@@ -105,6 +115,7 @@ async function run() {
       const filter = {_id: new ObjectId(id)};
       const options = { upsert: true };
       const updatedToy = req.body;
+      updatedToy.price = parseFloat(updatedToy.price);
       const toy = {
         $set:{
           price:updatedToy.price,availableQuantity:updatedToy.availableQuantity, description:updatedToy.description
