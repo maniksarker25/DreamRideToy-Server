@@ -82,7 +82,7 @@ async function run() {
         $or:[
           { toyName: { $regex: toyName, $options: "i" } }
         ]
-      }).toArray();
+      }).limit(20).toArray();
       res.send(result)
     })
     // add toy 
