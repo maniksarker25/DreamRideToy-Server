@@ -9,7 +9,7 @@ app.use(cors());
 app.use(express.json());
 
 app.get('/', (req,res)=>{
-    res.send('Dream Ride Toy Is Running')
+    res.send('Car Toy Express')
 })
 
 
@@ -130,5 +130,5 @@ run().catch(console.dir);
 
 
 app.listen(port,()=>{
-    console.log(`Dream Ride Toy Is Running On Port:${port}`)
+    console.log(`Car Toy Express Is Running On Port:${port}`)
 })
